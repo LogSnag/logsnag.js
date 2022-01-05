@@ -5,6 +5,7 @@
 	<p>Get notifications and track your project events.</p>
 	<a href="https://www.npmjs.com/package/logsnag"><img src="https://img.shields.io/npm/v/logsnag" alt="NPM Version"></a>
 	<a href="https://discord.gg/dY3pRxgWua"><img src="https://img.shields.io/discord/922560704454750245?color=%237289DA&label=Discord" alt="Discord"></a>
+	<a href="https://docs.logsnag.com"><img src="https://img.shields.io/badge/Docs-LogSnag" alt="Documentation"></a>
 	<br>
 	<br>
 </div>
@@ -13,7 +14,7 @@
 ## Installation
 
 ```sh
-npm install logsnag
+npm install --save logsnag
 ```
 
 ## Usage

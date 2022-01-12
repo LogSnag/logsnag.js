@@ -22,7 +22,7 @@ npm install --save logsnag
 ### Import Library
 
 ```js
-import LogSnag from 'logsnag';
+import { LogSnag } from 'logsnag';
 ```
 
 ### Initialize Client
@@ -37,7 +37,9 @@ const logsnag = new LogSnag('7f568d735724351757637b1dbf108e5')
 await logsnag.publish({
     project: "my-saas",
     channel: "waitlist",
-    event: "User Joined"
+    event: "User Joined",
+    icon: "🎉",
+    notify: true
 })
 ```
 

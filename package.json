@@ -1,11 +1,10 @@
 {
   "name": "logsnag",
-  "version": "0.0.6",
+  "version": "0.0.7-beta.1",
   "description": "LogSnag Client",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "publish-lib": "npm run build && npm publish",
     "publish-beta": "npm run build && npm publish --tag beta",

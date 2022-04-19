@@ -1,3 +1,7 @@
+
+/** Tag Type **/
+export type Tags = { [key: string]: string };
+
 /**
  * Options for publishing LogSnag events
  */
@@ -32,6 +36,13 @@ export interface PublishOptions {
    * example: "🎉"
    */
   icon?: string;
+
+  /**
+   * Event tags
+   * example: { username: "mattie" }
+   * TODO update requirements
+   */
+  tags?: Tags;
 
   /**
    * Send push notification

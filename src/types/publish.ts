@@ -1,24 +1,24 @@
 /**
  * Options for publishing LogSnag events
  */
-export interface PublishOptions {
+export interface PublishOptions <TProject = string, TChannel = string, TEvent = string> {
   /**
    * Project name
    * example: "my-saas"
    */
-  project: string;
+  project: TProject;
 
   /**
    * Channel name
    * example: "waitlist"
    */
-  channel: string;
+  channel: TChannel;
 
   /**
    * Event name
    * example: "User Joined"
    */
-  event: string;
+  event: TEvent;
 
   /**
    * Event description

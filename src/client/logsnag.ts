@@ -30,7 +30,9 @@ export default class LogSnag {
    * @param options
    * @returns true when successfully published
    */
-  public async publish(options: PublishOptions): Promise<boolean> {
+  public async publish<TProject = string, TChannel = string, TEvent = string>(
+    options: PublishOptions<TProject, TChannel, TEvent>
+  ): Promise<boolean> {
     const headers = {
       'Content-Type': 'application/json',
       Authorization: this.createAuthorizationHeader()

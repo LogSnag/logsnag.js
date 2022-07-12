@@ -41,6 +41,10 @@ logsnag.publish({
     channel: "waitlist",
     event: "User Joined",
     icon: "🎉",
+    tags: {
+      name: "john doe",
+      email: "john@example.com",
+    },
     notify: true
 })
 ```

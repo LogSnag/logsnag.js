@@ -7,12 +7,6 @@ export type Tags = { [key: string]: string | number | boolean };
  */
 export interface PublishOptions {
   /**
-   * Project name
-   * example: "my-saas"
-   */
-  project: string;
-
-  /**
    * Channel name
    * example: "waitlist"
    */

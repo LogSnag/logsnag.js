@@ -28,8 +28,10 @@ import { LogSnag } from 'logsnag';
 ### Initialize Client
 
 ```js
-const logsnag = new LogSnag({ token: '7f568d735724351757637b1dbf108e5', project: 'my-saas' });
-```
+const logsnag = new LogSnag({ 
+  token: '7f568d735724351757637b1dbf108e5',
+  project: 'my-saas'
+});
 ```
 
 ### Publish Event

@@ -6,7 +6,11 @@ import { PublishOptions } from '../types';
 /**
  * LogSnag Client
  */
-export default class LogSnag {
+export default class LogSnag<
+  Channel extends string = string,
+  Event extends string = string,
+  Icon extends string = string
+> {
   private readonly token: string;
   private readonly project: string;
 
@@ -42,7 +46,9 @@ export default class LogSnag {
    * @param options
    * @returns true when successfully published
    */
-  public async publish(options: PublishOptions): Promise<boolean> {
+  public async publish(
+    options: PublishOptions<Channel, Event, Icon>
+  ): Promise<boolean> {
     const headers = {
       'Content-Type': 'application/json',
       Authorization: this.createAuthorizationHeader()

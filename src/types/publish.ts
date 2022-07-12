@@ -1,22 +1,25 @@
-
 /** Tag Type **/
-export type Tags = { [key: string]: string | number | boolean };
+export type Tags = Record<string, string | number | boolean>;
 
 /**
  * Options for publishing LogSnag events
  */
-export interface PublishOptions {
+export interface PublishOptions<
+  Channel extends string = string,
+  Event extends string = string,
+  Icon extends string = string
+> {
   /**
    * Channel name
    * example: "waitlist"
    */
-  channel: string;
+  channel: Channel;
 
   /**
    * Event name
    * example: "User Joined"
    */
-  event: string;
+  event: Event;
 
   /**
    * Event description
@@ -29,7 +32,7 @@ export interface PublishOptions {
    * must be a single emoji
    * example: "🎉"
    */
-  icon?: string;
+  icon?: Icon;
 
   /**
    * Event tags

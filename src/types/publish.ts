@@ -1,22 +1,30 @@
+import type { ClientGenerics } from '.';
 
-/** Tag Type **/
-export type Tags = { [key: string]: string | number | boolean };
+/**
+ * Tag Type
+ */
+export type Tags = Record<string, string | number | boolean>;
 
 /**
  * Options for publishing LogSnag events
  */
-export interface PublishOptions {
+export interface PublishOptions<
+  TOptions extends Omit<ClientGenerics, 'project'> = {
+    channel: string;
+    event: string;
+  }
+> {
   /**
    * Channel name
    * example: "waitlist"
    */
-  channel: string;
+  channel: TOptions['channel'];
 
   /**
    * Event name
    * example: "User Joined"
    */
-  event: string;
+  event: TOptions['event'];
 
   /**
    * Event description

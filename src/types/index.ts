@@ -1,1 +1,2 @@
-export * from './publish'
+export * from './client';
+export * from './publish';

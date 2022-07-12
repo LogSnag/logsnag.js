@@ -1,14 +1,21 @@
 import fetch from 'node-fetch';
 import { LOGSNAG_ENDPOINT } from '../constants';
 import { HTTPResponseError } from './error';
-import { PublishOptions } from '../types';
+
+import type { ClientGenerics, ClientOptions, PublishOptions } from '../types';
 
 /**
  * LogSnag Client
  */
-export default class LogSnag {
+export default class LogSnag<
+  TOptions extends Partial<ClientGenerics> = {
+    channel: string;
+    event: string;
+    project: string;
+  }
+> {
   private readonly token: string;
-  private readonly project: string;
+  private readonly project: TOptions['project'];
 
   /**
    * Construct a new LogSnag instance
@@ -16,7 +23,7 @@ export default class LogSnag {
    * @param project LogSnag project name
    * for more information, see: docs.logsnag.com
    */
-  constructor({ token, project }: { token: string; project: string }) {
+  constructor({ token, project }: ClientOptions<TOptions['project']>) {
     this.token = token;
     this.project = project;
   }
@@ -25,7 +32,7 @@ export default class LogSnag {
    * Get project name
    * @returns project name
    */
-  getProject(): string {
+  getProject(): TOptions['project'] {
     return this.project;
   }
 
@@ -42,9 +49,7 @@ export default class LogSnag {
    * @param options
    * @returns true when successfully published
    */
-  public async publish<TProject = string, TChannel = string, TEvent = string>(
-    options: PublishOptions<TProject, TChannel, TEvent>
-  ): Promise<boolean> {
+  public async publish(options: PublishOptions<TOptions>): Promise<boolean> {
     const headers = {
       'Content-Type': 'application/json',
       Authorization: this.createAuthorizationHeader()

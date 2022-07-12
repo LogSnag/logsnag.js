@@ -9,18 +9,11 @@ export type Tags = Record<string, string | number | boolean>;
  * Options for publishing LogSnag events
  */
 export interface PublishOptions<
-  TOptions extends ClientGenerics = {
+  TOptions extends Omit<ClientGenerics, 'project'> = {
     channel: string;
     event: string;
-    project: string;
   }
 > {
-  /**
-   * Project name
-   * example: "my-saas"
-   */
-  project?: TOptions['project'];
-
   /**
    * Channel name
    * example: "waitlist"

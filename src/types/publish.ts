@@ -1,6 +1,6 @@
 
 /** Tag Type **/
-export type Tags = { [key: string]: string };
+export type Tags = { [key: string]: string | number | boolean };
 
 /**
  * Options for publishing LogSnag events
@@ -40,7 +40,6 @@ export interface PublishOptions {
   /**
    * Event tags
    * example: { username: "mattie" }
-   * TODO update requirements
    */
   tags?: Tags;
 

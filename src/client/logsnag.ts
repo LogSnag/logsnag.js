@@ -8,13 +8,25 @@ import { PublishOptions } from '../types';
  */
 export default class LogSnag {
   private readonly token: string;
+  private readonly project: string;
 
   /**
    * Construct a new LogSnag instance
-   * @param token: your API token. See docs.logsnag.com for details
+   * @param token LogSnag API token
+   * @param project LogSnag project name
+   * for more information, see: docs.logsnag.com
    */
-  constructor(token: string) {
+  constructor({ token, project }: { token: string; project: string }) {
     this.token = token;
+    this.project = project;
+  }
+
+  /**
+   * Get project name
+   * @returns project name
+   */
+  getProject(): string {
+    return this.project;
   }
 
   /**
@@ -37,7 +49,10 @@ export default class LogSnag {
     };
 
     const method = 'POST';
-    const body = JSON.stringify(options);
+    const body = JSON.stringify({
+      ...options,
+      project: this.getProject()
+    });
 
     const response = await fetch(LOGSNAG_ENDPOINT, { method, body, headers });
     if (!response.ok) {

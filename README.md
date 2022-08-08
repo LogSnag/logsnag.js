@@ -49,3 +49,12 @@ logsnag.publish({
 })
 ```
 
+### Publish Insight
+
+```js
+logsnag.insight({
+    title: "User Count",
+    value: "100",
+    icon: "👨",
+})
+```

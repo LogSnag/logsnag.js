@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "deno run -A ./scripts/build_npm.ts 0.0.1",
+    "build": "deno run -A ./scripts/build_npm.ts",
     "publish-lib": "npm run build && npm publish",
     "publish-beta": "npm run build && npm publish --tag beta",
     "publish-dryrun": "npm run build && npm publish --dry-run",

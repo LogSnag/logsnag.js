@@ -6,9 +6,9 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "deno run -A ./scripts/build_npm.ts",
-    "publish-lib": "npm run build && npm publish",
-    "publish-beta": "npm run build && npm publish --tag beta",
-    "publish-dryrun": "npm run build && npm publish --dry-run",
+    "publish-lib": "npm run build && cd ./npm && npm publish",
+    "publish-beta": "npm run build && cd ./npm && npm publish --tag beta",
+    "publish-dryrun": "npm run build && cd ./npm && npm publish --dry-run",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "lint": "eslint --ext .js,.ts ."
   },

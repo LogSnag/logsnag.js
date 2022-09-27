@@ -1,8 +1,7 @@
-import fetch from 'node-fetch';
-import { ENDPOINTS } from '../constants';
-import { HTTPResponseError } from './error';
-import { PublishOptions } from '../types';
-import { InsightOptions } from '../types/insight';
+import { ENDPOINTS } from '../constants.ts';
+import { HTTPResponseError } from './error.ts';
+import { PublishOptions } from '../types/index.ts';
+import { InsightOptions } from '../types/insight.ts';
 
 /**
  * LogSnag Client

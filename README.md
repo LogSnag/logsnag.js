@@ -58,3 +58,10 @@ logsnag.insight({
     icon: "👨",
 })
 ```
+
+# Deno 
+
+import like this
+```ts
+  import { LogSnag } from "https://deno.land/x/logsnag@0.1.0/src/mod.ts";
+```

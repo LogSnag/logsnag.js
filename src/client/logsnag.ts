@@ -57,7 +57,11 @@ export default class LogSnag {
 
     const response = await fetch(ENDPOINTS.LOG, { method, body, headers });
     if (!response.ok) {
-      throw new HTTPResponseError(response);
+      throw new HTTPResponseError(
+        response.status,
+        response.statusText,
+        await response.json()
+      );
     }
 
     return true;
@@ -82,7 +86,11 @@ export default class LogSnag {
 
     const response = await fetch(ENDPOINTS.INSIGHT, { method, body, headers });
     if (!response.ok) {
-      throw new HTTPResponseError(response);
+      throw new HTTPResponseError(
+        response.status,
+        response.statusText,
+        await response.json()
+      );
     }
 
     return true;

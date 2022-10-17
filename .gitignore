@@ -106,3 +106,6 @@ dist
 # Custom
 .idea
 .DS_Store
+*.html
+build
+build.py

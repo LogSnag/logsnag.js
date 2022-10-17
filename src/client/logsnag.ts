@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 import { ENDPOINTS } from '../constants';
 import { HTTPResponseError } from './error';
 import { PublishOptions } from '../types';

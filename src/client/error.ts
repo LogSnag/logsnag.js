@@ -1,5 +1,3 @@
-import { Response } from 'node-fetch';
-
 /**
  * Fetch HTTP Response Error
  */

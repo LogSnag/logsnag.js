@@ -8,7 +8,7 @@ export default defineConfig({
     name: "LogSnag",
     entry: resolve(__dirname, "src/main.ts"),
       formats: ["umd"],
-      fileName: (format) => `logsnag.${process.env.npm_package_version}.js`,
+      fileName: (format) => `ls.${process.env.npm_package_version}.js`,
     },
   },
 })

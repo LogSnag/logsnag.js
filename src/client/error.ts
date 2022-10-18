@@ -14,6 +14,9 @@ export class HTTPResponseError extends Error {
     this.body = body;
   }
 
+  /**
+   * Get Error Info as JSON
+   */
   toJSON() {
     return {
       status: this.status,

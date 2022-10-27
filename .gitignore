@@ -109,3 +109,5 @@ dist
 *.html
 build
 deno_dist
+deno
+js

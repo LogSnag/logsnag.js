@@ -1,3 +1,4 @@
+// @denoify-line-ignore
 import 'isomorphic-fetch';
 import LogSnag from './client/logsnag';
 

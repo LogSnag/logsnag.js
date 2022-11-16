@@ -108,6 +108,6 @@ dist
 .DS_Store
 *.html
 build
-deno_dist
+deno/0.1.6
 deno
 js

@@ -2,6 +2,8 @@
 /** Tag Type **/
 export type Tags = { [key: string]: string | number | boolean };
 
+export type Parser = 'markdown' | 'text';
+
 /**
  * Options for publishing LogSnag events
  */
@@ -41,4 +43,10 @@ export interface PublishOptions {
    * Send push notification
    */
   notify?: boolean;
+
+  /**
+   * Parser for description
+   */
+  parser?: Parser;
+
 }

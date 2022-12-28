@@ -1,6 +1,6 @@
 import { ENDPOINTS } from '../constants';
 import { HTTPResponseError } from './error';
-import { PublishOptions } from '../types';
+import { PublishOptions } from '../types/index';
 import { InsightOptions } from '../types/insight';
 
 /**

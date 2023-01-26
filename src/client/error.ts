@@ -7,7 +7,7 @@ export class HTTPResponseError extends Error {
   public readonly statusText: string;
   public readonly body: any | undefined;
 
-  constructor(status: number, statusText: string, body: any | undefined) {
+  constructor(status: number, statusText: string, body?: any) {
     // Validate that the status is a positive integer
     if (typeof status !== 'number' || status < 100 || status >= 600) {
       throw new Error('Invalid status code');

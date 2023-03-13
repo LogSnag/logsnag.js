@@ -52,9 +52,19 @@ logsnag.publish({
 ### Publish Insight
 
 ```js
-logsnag.insight({
+logsnag.insight.track({
     title: "User Count",
     value: "100",
+    icon: "👨",
+})
+```
+
+### Mutate Insight
+
+```js
+logsnag.insight.mutate({
+    title: "User Count",
+    value: { $inc: 1 },
     icon: "👨",
 })
 ```

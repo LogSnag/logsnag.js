@@ -49,4 +49,9 @@ export interface PublishOptions {
    */
   parser?: Parser;
 
+  /**
+   * Event timestamp
+   */
+  timestamp?: number | Date;
+
 }

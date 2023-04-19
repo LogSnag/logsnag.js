@@ -34,22 +34,35 @@ const logsnag = new LogSnag({
 });
 ```
 
-### Publish Event
+### Track Event
 
 ```js
-logsnag.publish({
+logsnag.track({
     channel: "waitlist",
     event: "User Joined",
     icon: "🎉",
+    userId: "user_123",
     tags: {
-      name: "john doe",
-      email: "john@example.com",
+      source: "google",
     },
     notify: true
 })
 ```
 
-### Publish Insight
+### User Properties
+
+```js
+logsnag.identify({
+    userId: "user_123",
+    properties: {
+      name: "John Doe",
+      email: "john@doe.com",
+      plan: "premium",
+    }
+})
+```
+
+### Track Insight
 
 ```js
 logsnag.insight.track({

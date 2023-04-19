@@ -2,7 +2,6 @@
  * Fetch HTTP Response Error
  */
 export class HTTPResponseError extends Error {
-
   public readonly status: number;
   public readonly statusText: string;
   public readonly body: any | undefined;

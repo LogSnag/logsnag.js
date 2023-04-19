@@ -1,4 +1,3 @@
-
 /** Tag Type **/
 export type Tags = { [key: string]: string | number | boolean };
 
@@ -7,7 +6,7 @@ export type Parser = 'markdown' | 'text';
 /**
  * Options for publishing LogSnag events
  */
-export interface PublishOptions {
+export interface TrackOptions {
   /**
    * Channel name
    * example: "waitlist"
@@ -25,6 +24,12 @@ export interface PublishOptions {
    * example: "joe@example.com joined waitlist"
    */
   description?: string;
+
+  /**
+   * User ID
+   * example: "user_123"
+   */
+  userId?: string;
 
   /**
    * Event icon (emoji)
@@ -53,5 +58,4 @@ export interface PublishOptions {
    * Event timestamp
    */
   timestamp?: number | Date;
-
 }

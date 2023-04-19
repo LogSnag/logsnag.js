@@ -10,7 +10,12 @@ export const ENDPOINTS = {
   LOG: LOGSNAG_BASE + '/v1/log',
 
   /**
+   * LogSnag Identify Endpoint
+   */
+  IDENTIFY: LOGSNAG_BASE + '/v1/identify',
+
+  /**
    * LogSnag Insight Endpoint
    */
-  INSIGHT: LOGSNAG_BASE + '/v1/insight',
-}
+  INSIGHT: LOGSNAG_BASE + '/v1/insight'
+};

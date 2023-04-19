@@ -1,8 +1,9 @@
 import { ENDPOINTS } from '../constants';
 import { HTTPResponseError } from './error';
-import { PublishOptions } from '../types/index';
+import { TrackOptions } from '../types/index';
 import { InsightMutateOptions, InsightTrackOptions } from '../types/insight';
 import { toUnixTimestamp } from '../utils/date';
+import { IdentifyOptions } from '../types/identify';
 
 /**
  * LogSnag Client
@@ -45,7 +46,7 @@ export default class LogSnag {
     return {
       track: this.insightTrack.bind(this),
       mutate: this.insightMutate.bind(this)
-    }
+    };
   }
 
   /**
@@ -53,7 +54,7 @@ export default class LogSnag {
    * @param options
    * @returns true when successfully published
    */
-  public async publish(options: PublishOptions): Promise<boolean> {
+  public async track(options: TrackOptions): Promise<boolean> {
     const headers = {
       'Content-Type': 'application/json',
       Authorization: this.createAuthorizationHeader()
@@ -66,10 +67,42 @@ export default class LogSnag {
 
     const body = JSON.stringify({
       ...options,
+      user_id: options.userId,
       project: this.getProject()
     });
 
     const response = await fetch(ENDPOINTS.LOG, { method, body, headers });
+    if (!response.ok) {
+      throw new HTTPResponseError(
+        response.status,
+        response.statusText,
+        await response.json()
+      );
+    }
+
+    return true;
+  }
+
+  /**
+   * Identify a user
+   * @param options
+   * @returns true when successfully published
+   */
+  public async identify(options: IdentifyOptions): Promise<boolean> {
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: this.createAuthorizationHeader()
+    };
+
+    const method = 'POST';
+
+    const body = JSON.stringify({
+      ...options,
+      user_id: options.userId,
+      project: this.getProject()
+    });
+
+    const response = await fetch(ENDPOINTS.IDENTIFY, { method, body, headers });
     if (!response.ok) {
       throw new HTTPResponseError(
         response.status,
@@ -115,7 +148,9 @@ export default class LogSnag {
    * @param options
    * @returns true when successfully published
    */
-  protected async insightMutate(options: InsightMutateOptions): Promise<boolean> {
+  protected async insightMutate(
+    options: InsightMutateOptions
+  ): Promise<boolean> {
     const headers = {
       'Content-Type': 'application/json',
       Authorization: this.createAuthorizationHeader()
@@ -138,5 +173,4 @@ export default class LogSnag {
 
     return true;
   }
-
 }

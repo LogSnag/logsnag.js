@@ -67,7 +67,6 @@ export default class LogSnag {
 
     const body = JSON.stringify({
       ...options,
-      user_id: options.userId,
       project: this.getProject()
     });
 
@@ -98,7 +97,6 @@ export default class LogSnag {
 
     const body = JSON.stringify({
       ...options,
-      user_id: options.userId,
       project: this.getProject()
     });
 

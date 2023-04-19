@@ -29,7 +29,7 @@ export interface TrackOptions {
    * User ID
    * example: "user_123"
    */
-  userId?: string;
+  user_id?: string;
 
   /**
    * Event icon (emoji)

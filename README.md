@@ -41,7 +41,7 @@ logsnag.track({
     channel: "waitlist",
     event: "User Joined",
     icon: "🎉",
-    userId: "user_123",
+    user_id: "user_123",
     tags: {
       source: "google",
     },
@@ -53,7 +53,7 @@ logsnag.track({
 
 ```js
 logsnag.identify({
-    userId: "user_123",
+    user_id: "user_123",
     properties: {
       name: "John Doe",
       email: "john@doe.com",

@@ -9,7 +9,7 @@ export interface IdentifyOptions {
    * User ID
    * example: "user_123"
    */
-  user_Id: string;
+  user_id: string;
 
   /**
    * User properties

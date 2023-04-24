@@ -24,5 +24,4 @@ export class HTTPResponseError extends Error {
       body: this.body
     };
   }
-
 }

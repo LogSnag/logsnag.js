@@ -11,16 +11,43 @@ import { IdentifyOptions } from '../types/identify';
 export default class LogSnag {
   private readonly token: string;
   private readonly project: string;
+  private disabled = false;
 
   /**
    * Construct a new LogSnag instance
    * @param token LogSnag API token
    * @param project LogSnag project name
+   * @param disableTracking Disable tracking
    * for more information, see: docs.logsnag.com
    */
-  constructor({ token, project }: { token: string; project: string }) {
+  constructor({
+    token,
+    project,
+    disableTracking = false
+  }: {
+    token: string;
+    project: string;
+    disableTracking?: boolean;
+  }) {
     this.token = token;
     this.project = project;
+    this.disabled = disableTracking || false;
+  }
+
+  /**
+   * Disable tracking for this instance
+   * (this is useful for development)
+   */
+  disableTracking() {
+    this.disabled = true;
+  }
+
+  /**
+   * Enable tracking for this instance
+   * (this is useful for development)
+   */
+  enableTracking() {
+    this.disabled = false;
   }
 
   /**
@@ -55,6 +82,7 @@ export default class LogSnag {
    * @returns true when successfully published
    */
   public async track(options: TrackOptions): Promise<boolean> {
+    if (this.disabled) return true;
     const headers = {
       'Content-Type': 'application/json',
       Authorization: this.createAuthorizationHeader()
@@ -88,6 +116,7 @@ export default class LogSnag {
    * @returns true when successfully published
    */
   public async identify(options: IdentifyOptions): Promise<boolean> {
+    if (this.disabled) return true;
     const headers = {
       'Content-Type': 'application/json',
       Authorization: this.createAuthorizationHeader()
@@ -118,6 +147,7 @@ export default class LogSnag {
    * @returns true when successfully published
    */
   protected async insightTrack(options: InsightTrackOptions): Promise<boolean> {
+    if (this.disabled) return true;
     const headers = {
       'Content-Type': 'application/json',
       Authorization: this.createAuthorizationHeader()
@@ -149,6 +179,7 @@ export default class LogSnag {
   protected async insightMutate(
     options: InsightMutateOptions
   ): Promise<boolean> {
+    if (this.disabled) return true;
     const headers = {
       'Content-Type': 'application/json',
       Authorization: this.createAuthorizationHeader()

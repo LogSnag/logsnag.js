@@ -72,12 +72,12 @@ logsnag.insight.track({
 })
 ```
 
-### Mutate Insight
+### Increment Insight
 
 ```js
-logsnag.insight.mutate({
+logsnag.insight.increment({
     title: "User Count",
-    value: { $inc: 1 },
+    value: 1,
     icon: "👨",
 })
 ```

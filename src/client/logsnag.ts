@@ -1,7 +1,7 @@
 import { ENDPOINTS } from '../constants';
 import { HTTPResponseError } from './error';
 import { TrackOptions } from '../types/index';
-import { InsightMutateOptions, InsightTrackOptions } from '../types/insight';
+import { InsightIncrementOptions, InsightTrackOptions } from '../types/insight';
 import { toUnixTimestamp } from '../utils/date';
 import { IdentifyOptions } from '../types/identify';
 
@@ -72,7 +72,7 @@ export default class LogSnag {
   get insight() {
     return {
       track: this.insightTrack.bind(this),
-      mutate: this.insightMutate.bind(this)
+      increment: this.insightIncrement.bind(this)
     };
   }
 
@@ -172,12 +172,12 @@ export default class LogSnag {
   }
 
   /**
-   * Mutate an insight in LogSnag
+   * Increment an insight value
    * @param options
    * @returns true when successfully published
    */
-  protected async insightMutate(
-    options: InsightMutateOptions
+  protected async insightIncrement(
+    options: InsightIncrementOptions
   ): Promise<boolean> {
     if (this.disabled) return true;
     const headers = {
@@ -187,8 +187,12 @@ export default class LogSnag {
 
     const method = 'PATCH';
     const body = JSON.stringify({
-      ...options,
-      project: this.getProject()
+      project: this.getProject(),
+      icon: options.icon,
+      title: options.title,
+      value: {
+        $inc: options.value
+      }
     });
 
     const response = await fetch(ENDPOINTS.INSIGHT, { method, body, headers });

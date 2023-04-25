@@ -24,10 +24,10 @@ export interface InsightTrackOptions extends InsightBase {
   value: string | boolean | number;
 }
 
-export interface InsightMutateOptions extends InsightBase {
+export interface InsightIncrementOptions extends InsightBase {
   /**
    * Insight value
-   * example: { $inc: 1 }
+   * example: 1
    */
-  value: { $inc: number };
+  value: number;
 }

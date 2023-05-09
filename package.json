@@ -1,6 +1,6 @@
 {
   "name": "logsnag",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "LogSnag Client",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -13,7 +13,7 @@
     "publish-beta": "npm run build && npm publish --tag beta",
     "publish-dryrun": "npm run build && npm publish --dry-run",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "lint": "eslint --ext .js,.ts ."
+    "lint": "eslint --ext .ts src"
   },
   "repository": {
     "type": "git",

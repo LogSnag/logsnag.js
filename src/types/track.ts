@@ -1,8 +1,3 @@
-/** Tag Type **/
-export type Tags = { [key: string]: string | number | boolean };
-
-export type Parser = 'markdown' | 'text';
-
 /**
  * Options for publishing LogSnag events
  */
@@ -59,3 +54,9 @@ export interface TrackOptions {
    */
   timestamp?: number | Date;
 }
+
+export type TagKey = Lowercase<string>;
+
+/** Tag Type **/
+export type Tags = { [key: TagKey]: string | number | boolean };
+export type Parser = 'markdown' | 'text';

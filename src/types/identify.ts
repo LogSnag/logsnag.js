@@ -1,5 +1,7 @@
+import { TagKey } from './track';
+
 /** Properties Type **/
-export type Properties = { [key: string]: string | number | boolean };
+export type Properties = { [key: TagKey]: string | number | boolean };
 
 /**
  * Options for publishing LogSnag identify

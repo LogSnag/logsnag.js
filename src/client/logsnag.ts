@@ -1,7 +1,10 @@
 import { ENDPOINTS } from '../constants';
 import { HTTPResponseError } from './error';
-import { PublishOptions } from '../types/index';
-import { InsightOptions } from '../types/insight';
+import { TrackOptions } from '../types';
+import { InsightIncrementOptions, InsightTrackOptions } from '../types';
+import { toUnixTimestamp } from '../utils/date';
+import { IdentifyOptions } from '../types/identify';
+import { GroupOptions } from '../types/group';
 
 /**
  * LogSnag Client
@@ -9,16 +12,43 @@ import { InsightOptions } from '../types/insight';
 export default class LogSnag {
   private readonly token: string;
   private readonly project: string;
+  private disabled = false;
 
   /**
    * Construct a new LogSnag instance
    * @param token LogSnag API token
    * @param project LogSnag project name
+   * @param disableTracking Disable tracking
    * for more information, see: docs.logsnag.com
    */
-  constructor({ token, project }: { token: string; project: string }) {
+  constructor({
+    token,
+    project,
+    disableTracking = false
+  }: {
+    token: string;
+    project: string;
+    disableTracking?: boolean;
+  }) {
     this.token = token;
     this.project = project;
+    this.disabled = disableTracking || false;
+  }
+
+  /**
+   * Disable tracking for this instance
+   * (this is useful for development)
+   */
+  disableTracking() {
+    this.disabled = true;
+  }
+
+  /**
+   * Enable tracking for this instance
+   * (this is useful for development)
+   */
+  enableTracking() {
+    this.disabled = false;
   }
 
   /**
@@ -38,17 +68,39 @@ export default class LogSnag {
   }
 
   /**
+   * Creates headers for requests
+   * @private
+   */
+  private createHeaders(): Record<string, string> {
+    return {
+      'Content-Type': 'application/json',
+      Authorization: this.createAuthorizationHeader()
+    };
+  }
+
+  /**
+   * Get insight methods
+   */
+  get insight() {
+    return {
+      track: this.insightTrack.bind(this),
+      increment: this.insightIncrement.bind(this)
+    };
+  }
+
+  /**
    * Publish a new event to LogSnag
    * @param options
    * @returns true when successfully published
    */
-  public async publish(options: PublishOptions): Promise<boolean> {
-    const headers = {
-      'Content-Type': 'application/json',
-      Authorization: this.createAuthorizationHeader()
-    };
-
+  public async track(options: TrackOptions): Promise<boolean> {
+    if (this.disabled) return true;
+    const headers = this.createHeaders();
     const method = 'POST';
+
+    // Convert timestamp to unix timestamp if needed
+    options.timestamp = toUnixTimestamp(options.timestamp);
+
     const body = JSON.stringify({
       ...options,
       project: this.getProject()
@@ -67,16 +119,67 @@ export default class LogSnag {
   }
 
   /**
+   * Identify a user
+   * @param options
+   * @returns true when successfully published
+   */
+  public async identify(options: IdentifyOptions): Promise<boolean> {
+    if (this.disabled) return true;
+    const headers = this.createHeaders();
+    const method = 'POST';
+
+    const body = JSON.stringify({
+      ...options,
+      project: this.getProject()
+    });
+
+    const response = await fetch(ENDPOINTS.IDENTIFY, { method, body, headers });
+    if (!response.ok) {
+      throw new HTTPResponseError(
+        response.status,
+        response.statusText,
+        await response.json()
+      );
+    }
+
+    return true;
+  }
+
+  /**
+   * Group a user or update group properties
+   * @param options
+   * @returns true when successfully published
+   */
+  public async group(options: GroupOptions): Promise<boolean> {
+    if (this.disabled) return true;
+    const headers = this.createHeaders();
+    const method = 'POST';
+
+    const body = JSON.stringify({
+      ...options,
+      project: this.getProject()
+    });
+
+    const response = await fetch(ENDPOINTS.GROUP, { method, body, headers });
+    if (!response.ok) {
+      throw new HTTPResponseError(
+        response.status,
+        response.statusText,
+        await response.json()
+      );
+    }
+
+    return true;
+  }
+
+  /**
    * Publish a new insight to LogSnag
    * @param options
    * @returns true when successfully published
    */
-  public async insight(options: InsightOptions): Promise<boolean> {
-    const headers = {
-      'Content-Type': 'application/json',
-      Authorization: this.createAuthorizationHeader()
-    };
-
+  protected async insightTrack(options: InsightTrackOptions): Promise<boolean> {
+    if (this.disabled) return true;
+    const headers = this.createHeaders();
     const method = 'POST';
     const body = JSON.stringify({
       ...options,
@@ -95,5 +198,35 @@ export default class LogSnag {
     return true;
   }
 
+  /**
+   * Increment an insight value
+   * @param options
+   * @returns true when successfully published
+   */
+  protected async insightIncrement(
+    options: InsightIncrementOptions
+  ): Promise<boolean> {
+    if (this.disabled) return true;
+    const headers = this.createHeaders();
+    const method = 'PATCH';
+    const body = JSON.stringify({
+      project: this.getProject(),
+      icon: options.icon,
+      title: options.title,
+      value: {
+        $inc: options.value
+      }
+    });
 
+    const response = await fetch(ENDPOINTS.INSIGHT, { method, body, headers });
+    if (!response.ok) {
+      throw new HTTPResponseError(
+        response.status,
+        response.statusText,
+        await response.json()
+      );
+    }
+
+    return true;
+  }
 }

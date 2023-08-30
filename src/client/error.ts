@@ -2,16 +2,31 @@
  * Fetch HTTP Response Error
  */
 export class HTTPResponseError extends Error {
-
-  public readonly status: number;
-  public readonly statusText: string;
-  public readonly body: any | undefined;
+  public readonly message: string;
 
   constructor(status: number, statusText: string, body: any | undefined) {
     super(`HTTP Error Response: ${status} ${statusText}`);
-    this.status = status;
-    this.statusText = statusText;
-    this.body = body;
+    this.message = this.createReadableString(body);
+  }
+
+  /**
+   * Create a readable string from the response body
+   * @param body
+   */
+  createReadableString(body: any) {
+    let error = '[LogSnag] Failed to publish: ';
+    if (body && body.validation && Array.isArray(body.validation.body)) {
+      error += body.validation.body
+        .map((item: { message: string }) => item.message)
+        .join(', ');
+    } else {
+      error += `: Please check our docs at https://docs.logsnag.com`;
+    }
+    return error;
+  }
+
+  toString() {
+    return this.message;
   }
 
   /**
@@ -19,11 +34,7 @@ export class HTTPResponseError extends Error {
    */
   toJSON() {
     return {
-      status: this.status,
-      statusText: this.statusText,
-      message: this.body && this.body.message ? this.body.message : undefined,
-      body: this.body
+      message: this.message
     };
   }
-
 }

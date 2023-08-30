@@ -34,27 +34,50 @@ const logsnag = new LogSnag({
 });
 ```
 
-### Publish Event
+### Track Event
 
 ```js
-logsnag.publish({
+logsnag.track({
     channel: "waitlist",
     event: "User Joined",
     icon: "🎉",
+    user_id: "user_123",
     tags: {
-      name: "john doe",
-      email: "john@example.com",
+      source: "google",
     },
     notify: true
 })
 ```
 
-### Publish Insight
+### User Properties
 
 ```js
-logsnag.insight({
+logsnag.identify({
+    user_id: "user_123",
+    properties: {
+      name: "John Doe",
+      email: "john@doe.com",
+      plan: "premium",
+    }
+})
+```
+
+### Track Insight
+
+```js
+logsnag.insight.track({
     title: "User Count",
     value: "100",
+    icon: "👨",
+})
+```
+
+### Increment Insight
+
+```js
+logsnag.insight.increment({
+    title: "User Count",
+    value: 1,
     icon: "👨",
 })
 ```
